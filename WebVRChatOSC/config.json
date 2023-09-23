@@ -1,0 +1,5 @@
+{
+  "oscHost": "127.0.0.1",
+  "oscSendPort": 9000,
+  "oscRecvPort": 9001
+}

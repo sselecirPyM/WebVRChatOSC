@@ -1,0 +1,93 @@
+<template>
+  <q-toggle v-if="btn.type == 1" :label="btn.label" color="blue" :unchecked-icon="btn.icon" checked-icon="done"
+    v-model="checked" @update:model-value="val => toggleExecute(val, btn)"></q-toggle>
+
+  <div v-else-if="btn.type == 2">
+    <q-badge color="secondary">
+      {{ btn.label + ': ' + context.value }}
+    </q-badge>
+    <q-slider :min="btn.min" :max="btn.max" v-model="context.value" :step="0"
+      @update:model-value="val => sliderExecute(val, btn)" :style="'background-color:' + btn.color"></q-slider>
+  </div>
+
+  <q-btn v-else rounded :label="btn.label" :style="'background-color:' + btn.color" :icon="btn.icon"
+    @click="btnExecute(btn)" no-caps />
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+import { api } from '../boot/axios';
+
+export default defineComponent({
+  name: 'CustomButton',
+  data() {
+    return {
+      checked: false,
+      context: {
+        value: 1e-11
+      },
+      busy: false,
+      lockValue: null
+    };
+  },
+  props: {
+    btn: {
+    }
+  },
+  mounted() {
+    this.context.osc = this.oscControl;
+    this.context.chat = this.chat;
+  },
+  methods: {
+    chat(message, duration) {
+      if (duration === undefined)
+        duration = 30;
+      api.request({
+        method: "post",
+        url: "/api/chat/message",
+        data: {
+          content: message,
+          duration: duration
+        }
+      });
+    },
+    oscControl(path, data) {
+      if (this.busy) {
+        this.lockValue = { path: path, data: data };
+        return;
+      }
+      this.busy = true;
+
+      api.request({
+        method: "post",
+        url: "/api/osc?path=" + path,
+        data: data
+      }).finally(() => {
+        this.busy = false;
+        if (this.lockValue) {
+          this.oscControl(this.lockValue.path, this.lockValue.data);
+          this.lockValue = null;
+        }
+      });
+    },
+    btnExecute(btn) {
+      this.execute(btn.action);
+    },
+    toggleExecute(value, btn) {
+      if (value)
+        this.execute(btn.action);
+      else
+        this.execute(btn.deactiveAction);
+    },
+    sliderExecute(value, btn) {
+      this.context.value = value;
+      this.context.value += 1e-11;
+      this.execute(btn.action);
+    },
+    execute(action) {
+      const func = new Function(action);
+      func.call(this.context);
+    }
+  }
+})
+</script>
