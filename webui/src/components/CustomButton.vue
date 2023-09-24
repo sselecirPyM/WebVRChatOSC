@@ -4,6 +4,7 @@
 
   <div v-else-if="btn.type == 2">
     <q-badge color="secondary">
+      <q-icon v-if="btn.icon" :name="btn.icon" />
       {{ btn.label + ': ' + context.value }}
     </q-badge>
     <q-slider :min="btn.min" :max="btn.max" v-model="context.value" :step="0"

@@ -2,7 +2,7 @@
   <q-dialog v-model="value" @show="getAvatarData">
     <q-card style="min-width: 350px">
       <q-card-section>
-        <q-scroll-area style="height: 300px;">
+        <q-scroll-area style="height: 360px;">
           <q-list separator>
             <q-item v-for="(code, index) in codes" :key="index" clickable :active="current == code"
               @click="current = code">
@@ -18,6 +18,10 @@
       </q-card-section>
       <q-card-section>
         <q-input :label="$t('value')" v-model="p" />
+        <q-chip clickable @click="p=''">clear</q-chip>
+        <q-chip clickable @click="p='this.value'">this.value</q-chip>
+        <q-chip clickable @click="p='false'">false</q-chip>
+        <q-chip clickable @click="p='Math.random()'">Math.random()</q-chip>
       </q-card-section>
       <q-card-actions align="right" class="text-primary">
         <q-btn :disable="!current" flat :label="$t('confirm')" @click="setParam" v-close-popup />

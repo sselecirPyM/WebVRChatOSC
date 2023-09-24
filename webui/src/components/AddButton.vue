@@ -24,8 +24,8 @@
         </q-btn>
       </template>
     </q-input>
-    <q-input v-if="addbtn.type == 2" dense :label="$t('min')" v-model="addbtn.min" type="number" />
-    <q-input v-if="addbtn.type == 2" dense :label="$t('max')" v-model="addbtn.max" type="number" />
+    <q-input v-if="addbtn.type == 2" dense :label="$t('min')" v-model="addbtn.min" type="number" step="any" />
+    <q-input v-if="addbtn.type == 2" dense :label="$t('max')" v-model="addbtn.max" type="number" step="any" />
     <q-btn icon="palette" class="cursor-pointer">
       <q-popup-proxy cover :breakpoint="600">
         <q-card>
@@ -41,7 +41,7 @@
     ]" />
     <q-btn flat type="submit" color="blue" :label="$t('submit')" :loading="busy" />
   </q-form>
-  
+
   <ParameterDialog v-model="showDialog" @submit="val => this.addbtn.action = val" />
   <ParameterDialog v-model="showDialogD" @submit="val => this.addbtn.deactiveAction = val" />
 </template>
