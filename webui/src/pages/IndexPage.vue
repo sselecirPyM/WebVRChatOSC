@@ -4,12 +4,14 @@
       <q-card-section>
         <q-input :label="$t('chat')" maxlength="144" autogrow v-model="message">
           <template v-slot:after>
-            <q-btn-dropdown split :label="$t('send')" @click="chat">
+            <q-btn :label="$t('send')" @click="chat">
+            </q-btn>
+            <!-- <q-btn-dropdown split :label="$t('send')" @click="chat">
               <q-list>
                 <q-item clickable v-close-popup @click="duration = 30" :active="duration == 30">30s</q-item>
                 <q-item clickable v-close-popup @click="duration = 60" :active="duration == 60">60s</q-item>
               </q-list>
-            </q-btn-dropdown>
+            </q-btn-dropdown> -->
           </template>
         </q-input>
         <q-btn flat color="red" :label="$t('clear')" @click="message = ''" />
@@ -47,7 +49,7 @@ export default defineComponent({
   data() {
     return {
       message: "",
-      duration: 30,
+      // duration: 30,
       avatar: {},
       turning: 0,
       vertical: 0,
@@ -79,15 +81,7 @@ export default defineComponent({
       });
     },
     chat() {
-      api.request({
-        method: "post",
-        url: "/api/chat/message",
-        data: {
-          content: this.message,
-          duration: this.duration
-        }
-      });
-
+      this.oscControl("/chatbox/input", this.message);
       this.message = "";
     },
     addDate() {

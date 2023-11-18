@@ -1,5 +1,4 @@
-﻿
-using CoreOSC;
+﻿using CoreOSC;
 using LiteDB;
 using WebVRChatOSC.DTO;
 
@@ -19,7 +18,7 @@ namespace WebVRChatOSC.Services
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             using var scope = _serviceProvider.CreateScope();
-            var textService = (TextService)scope.ServiceProvider.GetService<ITextService>();
+            //var textService = (TextService)scope.ServiceProvider.GetService<ITextService>();
             var osc = (OSCService)scope.ServiceProvider.GetService<IOSCService>();
             osc.OnReceiveOSC += History;
 
@@ -27,9 +26,10 @@ namespace WebVRChatOSC.Services
 
             try
             {
-                textService.DoWork();
                 while (await timer.WaitForNextTickAsync(stoppingToken))
-                    textService.DoWork();
+                {
+
+                }
             }
             catch (OperationCanceledException)
             {

@@ -40,17 +40,8 @@ export default defineComponent({
     this.context.chat = this.chat;
   },
   methods: {
-    chat(message, duration) {
-      if (duration === undefined)
-        duration = 30;
-      api.request({
-        method: "post",
-        url: "/api/chat/message",
-        data: {
-          content: message,
-          duration: duration
-        }
-      });
+    chat(message) {
+      this.oscControl("/chatbox/input", message);
     },
     oscControl(path, data) {
       if (this.busy) {

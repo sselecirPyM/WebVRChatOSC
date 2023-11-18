@@ -22,7 +22,6 @@ namespace WebVRChatOSC
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<IOSCService, OSCService>();
-            builder.Services.AddSingleton<ITextService, TextService>();
             builder.Services.AddSingleton<ILiteDatabase, LiteDatabase>((provider) => new LiteDatabase("data.db"));
 
 
