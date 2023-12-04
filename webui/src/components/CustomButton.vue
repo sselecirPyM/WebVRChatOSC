@@ -1,5 +1,7 @@
 <template>
-  <q-toggle v-if="btn.type == 1" :label="btn.label" color="blue" :unchecked-icon="btn.icon" checked-icon="done"
+  <q-btn v-if="btn.type == 0" rounded :label="btn.label" :style="'background-color:' + btn.color" :icon="btn.icon"
+    @click="btnExecute(btn)" no-caps />
+  <q-toggle v-else-if="btn.type == 1" :label="btn.label" color="blue" :unchecked-icon="btn.icon" checked-icon="done"
     v-model="checked" @update:model-value="val => toggleExecute(val, btn)"></q-toggle>
 
   <div v-else-if="btn.type == 2">
@@ -10,9 +12,25 @@
     <q-slider :min="btn.min" :max="btn.max" v-model="context.value" :step="0"
       @update:model-value="val => sliderExecute(val, btn)" :style="'background-color:' + btn.color"></q-slider>
   </div>
+  <q-btn v-else-if="btn.type == 3" rounded :label="btn.label" :style="'background-color:' + btn.color" :icon="btn.icon"
+    @click="showDialog = true" no-caps>
+    <q-dialog v-model="showDialog" persistent>
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h6">{{ btn.label }}</div>
+        </q-card-section>
 
-  <q-btn v-else rounded :label="btn.label" :style="'background-color:' + btn.color" :icon="btn.icon"
-    @click="btnExecute(btn)" no-caps />
+        <q-card-section class="q-pt-none">
+          <q-input dense v-model="context.textValue" autofocus @keyup.enter="showDialog = false; btnExecute(btn)" />
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat :label="$t('cancel')" v-close-popup />
+          <q-btn flat :label="$t('confirm')" v-close-popup @click="btnExecute(btn)" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+  </q-btn>
 </template>
 
 <script>
@@ -25,10 +43,12 @@ export default defineComponent({
     return {
       checked: false,
       context: {
-        value: 1e-11
+        value: 1e-11,
+        textValue: ''
       },
       busy: false,
-      lockValue: null
+      lockValue: null,
+      showDialog: false
     };
   },
   props: {

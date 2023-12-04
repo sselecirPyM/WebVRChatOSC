@@ -34,11 +34,20 @@
         </q-card>
       </q-popup-proxy>
     </q-btn>
-    <q-btn-toggle v-model="addbtn.type" toggle-color="primary" :options="[
-      { label: $t('button'), value: 0 },
-      { label: $t('toggle'), value: 1 },
-      { label: $t('slider'), value: 2 }
-    ]" />
+    <q-btn :label="$t('buttonType')">
+      <q-popup-proxy>
+        <q-card>
+          <q-card-section>
+            <q-btn-toggle v-model="addbtn.type" toggle-color="primary" :options="[
+              { label: $t('button'), value: 0 },
+              { label: $t('toggle'), value: 1 },
+              { label: $t('slider'), value: 2 },
+              { label: $t('textDialog'), value: 3 }
+            ]" />
+          </q-card-section>
+        </q-card>
+      </q-popup-proxy>
+    </q-btn>
     <q-btn flat type="submit" color="blue" :label="$t('submit')" :loading="busy" />
   </q-form>
 

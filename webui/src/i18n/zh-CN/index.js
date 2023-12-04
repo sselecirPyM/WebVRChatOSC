@@ -34,5 +34,7 @@ export default {
   AvatarParameter: '模型参数',
   value: '值',
   confirm: '确认',
-  cancel: '取消'
+  cancel: '取消',
+  buttonType: '按钮类型',
+  textDialog: '文本对话框'
 }

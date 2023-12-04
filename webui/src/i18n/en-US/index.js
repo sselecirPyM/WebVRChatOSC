@@ -34,5 +34,7 @@ export default {
   AvatarParameter: 'Avatar parameter',
   value: 'value',
   confirm: 'confirm',
-  cancel: 'cancel'
+  cancel: 'cancel',
+  buttonType: 'button type',
+  textDialog: 'text dialog'
 }
