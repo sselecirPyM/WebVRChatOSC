@@ -7,11 +7,18 @@ You can control your avatar through your browser.
 Full customized button. You can give the button any OSC function.
 
 ## Requirement
-Asp.Net Core Runtime 7 or DotNet SDK 7
+DotNet SDK 8
 
-https://dotnet.microsoft.com/en-us/download/dotnet/7.0
+https://dotnet.microsoft.com/en-us/download/dotnet/8.0
 
-Double click run.bat to run it.
+Install the .net8 SDK. Then double-click run.bat run. It doesn't seem to be possible to use the x86 SDK on 64-bit Windows, so choose the x64 SDK.
+
+
+Or use the PowerShell command line to install.
+
+```
+winget install Microsoft.DotNet.SDK.8
+```
 
 ## Quickly add a button
 1. Run VRChat, making sure you have OSC open and the program is running.
@@ -30,8 +37,10 @@ To access from outside of localhost, use the following parameters:
 dotnet WebVRChatOSC.dll --urls http://*:5000
 ```
 
-## Build
-Require npm and dotnet sdk 7
+## If you want to build from source
+Require npm and dotnet sdk 8
+
+Run
 
 ```
 dotnet build WebVRChatOSC.sln

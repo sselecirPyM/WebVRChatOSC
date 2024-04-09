@@ -154,6 +154,7 @@ export default defineComponent({
       const data = JSON.parse(jsonString)
       for (let i = 0; i < data.length; i++) {
         data[i].category = this.category;
+        data[i].id = undefined;
       }
       api.request({
         method: "post",
