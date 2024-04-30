@@ -40,8 +40,13 @@ namespace WebVRChatOSC.API
         public AvatarData GetLast(ILiteDatabase db)
         {
             var last = db.GetCollection<AvatarHistory>("avatarHistory").Query().OrderByDescending(u => u.id).FirstOrDefault();
+            if (last == null)
+            {
+                return null;
+            }
             var avatarCollection = AvatarCollection(db);
-            var data = avatarCollection.FindById(last.avatarId);
+            AvatarData data = avatarCollection.FindById(last.avatarId);
+            data = avatarCollection.FindById(last.avatarId);
             if (data == null)
             {
                 string path = Environment.ExpandEnvironmentVariables("%appdata%/../LocalLow/VRChat/VRChat/OSC/");

@@ -44,8 +44,12 @@ export default defineComponent({
           code: "this.osc('/tracking/eye/EyesClosedAmount',[1+1e-11])"
         },
         {
-          label: "Preset: Date",
+          label: "Preset: Chat Date",
           code: "this.chat(new Date(Date.now()).toTimeString(),5)"
+        },
+        {
+          label: "Preset: Voice",
+          code: "this.osc('/input/Voice',[1]);this.osc('/input/Voice',[0])"
         }
       ],
       parameters: [],
