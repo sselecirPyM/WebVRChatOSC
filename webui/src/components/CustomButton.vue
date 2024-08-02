@@ -61,7 +61,7 @@ export default defineComponent({
   },
   methods: {
     chat(message) {
-      this.oscControl("/chatbox/input", message);
+      this.oscControl("/chatbox/input", [message, true, true]);
     },
     oscControl(path, data) {
       if (this.busy) {

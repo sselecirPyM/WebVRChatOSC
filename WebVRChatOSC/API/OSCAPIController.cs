@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using WebVRChatOSC.DTO;
 using WebVRChatOSC.Services;
 
 namespace WebVRChatOSC.API
@@ -9,7 +10,7 @@ namespace WebVRChatOSC.API
     public class OSCAPIController : ControllerBase
     {
         [HttpPost]
-        public string OSCCall([FromQuery] string path, IOSCService osc, object[] objects)
+        public string OSCCall([FromQuery] string path, IOSCService osc,[FromBody] JsonElement[] objects)
         {
             List<object> objects1 = new List<object>();
             foreach (var item in objects)
